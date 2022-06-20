@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:p="clr-namespace:Playnite;assembly=Playnite"
                     mc:Ignorable="d">
 
     <Style x:Key="GridViewItemTemplate" TargetType="{x:Type GameListItem}">
@@ -14,15 +15,48 @@
                         <StackPanel Name="PART_PanelHost"
                                     d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}">
                             <Grid Width="{Settings GridItemWidth}">
-                                <Grid.OpacityMask>
-                                    <VisualBrush Visual="{Binding ElementName=Mask}"/>
-                                </Grid.OpacityMask>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=Mask, Path=Tag}" Value="True">
+                                                <Setter Property="OpacityMask">
+                                                    <Setter.Value>
+                                                        <VisualBrush Visual="{Binding ElementName=Mask}"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Border Grid.RowSpan="2" Name="Mask" Background="{DynamicResource GridViewItemMaskBackgroundBrush}" CornerRadius="{DynamicResource GridViewCoverCornerRadius}" />
 
+                                <Border Grid.RowSpan="2" Name="Mask" Background="{DynamicResource GridViewItemMaskBackgroundBrush}"
+                                        Tag="{DynamicResource GridViewCoverUseRoundedCorners}"
+                                        Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        BorderThickness="0">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="{DynamicResource GridViewCoverCornerRadius}" />
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Settings ShowGridItemBackground}" Value="True" />
+                                                        <Condition Binding="{Settings ShowNamesUnderCovers}" Value="True" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="CornerRadius" Value="{DynamicResource GridViewCoverGridBackgroundDisabledCornerRadius}" />
+                                                </MultiDataTrigger>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False">
+                                                    <Setter Property="CornerRadius" Value="0,0,0,0" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                                
                                 <TextBlock x:Name="BannersEnabled"
                                            Visibility="Collapsed"
                                            Tag="{DynamicResource GridViewCoverDisplayLibraryBanner}" />
@@ -85,16 +119,13 @@
 
                                 <Image x:Name="PlatformBanner" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
                                        RenderOptions.BitmapScalingMode="Fant"
+                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToVisibilityConverter}}"
                                        Opacity="{DynamicResource GridViewCoverLibraryBannerOpacity}"
                                        Stretch="Uniform" StretchDirection="Both">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{x:Null}" />
-                                            <Setter Property="Visibility" Value="Collapsed" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToBoolConverter}}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding ElementName=PlatformSpecificationId, Path=Text}" Value="nintendo_gamecube">
                                                     <Setter Property="Source" Value="{StaticResource NintendoGamecubePlatformBannerBitmap}" />
                                                 </DataTrigger>
@@ -270,16 +301,13 @@
 
                                 <Image x:Name="PlatformNameBanner" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
                                        RenderOptions.BitmapScalingMode="Fant"
+                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToVisibilityConverter}}"
                                        Opacity="{DynamicResource GridViewCoverLibraryBannerOpacity}"
                                        Stretch="Uniform" StretchDirection="Both">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{x:Null}" />
-                                            <Setter Property="Visibility" Value="Collapsed" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToBoolConverter}}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding ElementName=PlatformName, Path=Text}" Value="Microsoft MSX">
                                                     <Setter Property="Source" Value="{StaticResource MicrosoftMsxPlatformBannerBitmap}" />
                                                 </DataTrigger>
@@ -317,16 +345,13 @@
 
                                 <Image x:Name="LibraryBanner" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
                                        RenderOptions.BitmapScalingMode="Fant"
+                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToVisibilityConverter}}"
                                        Opacity="{DynamicResource GridViewCoverLibraryBannerOpacity}"
                                        Stretch="Uniform" StretchDirection="Both">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{x:Null}" />
-                                            <Setter Property="Visibility" Value="Collapsed" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToBoolConverter}}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding ElementName=PluginId, Path=Text}" Value="402674cd-4af6-4886-b6ec-0e695bfa0688">
                                                     <Setter Property="Source" Value="{StaticResource AmazonGamesLibraryBannerBitmap}" />
                                                 </DataTrigger>
@@ -403,12 +428,12 @@
 
                                 <Image x:Name="PcPlatformBanner" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
                                        RenderOptions.BitmapScalingMode="Fant"
+                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToVisibilityConverter}}"
                                        Opacity="{DynamicResource GridViewCoverLibraryBannerOpacity}"
                                        Stretch="Uniform" StretchDirection="Both">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{x:Null}" />
-                                            <Setter Property="Visibility" Value="Collapsed" />
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
@@ -419,21 +444,20 @@
                                                         <Condition Binding="{Binding ElementName=LibraryBanner, Path=Visibility}" Value="Collapsed" />
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="Source" Value="{StaticResource PcWindowsPlatformBannerBitmap}" />
-                                                    <Setter Property="Visibility" Value="Visible" />
                                                 </MultiDataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Image.Style>
                                 </Image>
-                                
+
                                 <Image x:Name="UnknownBanner" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
                                        RenderOptions.BitmapScalingMode="Fant"
+                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Source, Converter={StaticResource NullToVisibilityConverter}}"
                                        Opacity="{DynamicResource GridViewCoverLibraryBannerOpacity}"
                                        Stretch="Uniform" StretchDirection="Both">
                                     <Image.Style>
                                         <Style TargetType="Image">
                                             <Setter Property="Source" Value="{x:Null}" />
-                                            <Setter Property="Visibility" Value="Collapsed" />
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
@@ -444,7 +468,6 @@
                                                         <Condition Binding="{Binding ElementName=PcPlatformBanner, Path=Visibility}" Value="Collapsed" />
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="Source" Value="{StaticResource PlayniteLibraryBannerBitmap}" />
-                                                    <Setter Property="Visibility" Value="Visible" />
                                                 </MultiDataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -455,7 +478,7 @@
                                        RenderOptions.BitmapScalingMode="Fant" StretchDirection="Both"
                                        HorizontalAlignment="Center" VerticalAlignment="Top"
                                        Stretch="{Settings CoverArtStretch}" />
-                                
+
                                 <Grid Grid.RowSpan="2">
                                     <Border Background="#99000000" x:Name="TextGameName" Visibility="Collapsed">
                                         <TextBlock Text="{Binding DisplayName}"
@@ -465,6 +488,9 @@
                                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Background="#AA000000" x:Name="BorderMouseOver" Visibility="Collapsed" />
+                                    <Border x:Name="GlowPlayingBorder" Visibility="Collapsed"/>
+                                    <TextBlock Name="EnablePlayingGlowBorder" Visibility="Collapsed"
+                                               Tag="{DynamicResource GridViewEnablePlayingGlowBorder}" />
                                     <Border Name="ShineBackground" Tag="False" IsHitTestVisible="False"
                                             Style="{DynamicResource AnimatedCoverShineBackground}" />
                                     <TextBlock Name="EnableHighlightAnimation" Visibility="Collapsed"
@@ -513,9 +539,17 @@
                                     </Viewbox>
                                 </Grid>
                             </Grid>
-                            <Border x:Name="ShowGameNameBorder"
-                                    CornerRadius="{DynamicResource GridViewShowGameNameCornerRadius}"
-                                    Background="Transparent">
+                            <Border x:Name="ShowGameNameBorder" Background="Transparent">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="0" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=Mask, Path=Tag}" Value="True">
+                                                <Setter Property="CornerRadius" Value="{DynamicResource GridViewShowGameNameCornerRadius}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                                 <TextBlock x:Name="ShowGameName" Text="{Binding DisplayName}"
                                            Style="{StaticResource BaseTextBlockStyle}"                                                   
                                            TextAlignment="Left" TextTrimming="CharacterEllipsis"
@@ -549,18 +583,40 @@
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Tag" Value="True" TargetName="ShineBackground" />
                         </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsVisible}" Value="True" />
+                                <Condition Binding="{Binding Source={x:Static p:PlayniteApplication.Current}, Path=IsActive}" Value="True" />
+                                <Condition Binding="{Binding ElementName=EnablePlayingGlowBorder, Path=Tag}" Value="True" />
+                                <Condition Binding="{Binding IsRunning}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource WhiteNoiseBrush}" TargetName="GlowPlayingBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="GlowPlayingBorder" />
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard x:Name="Flashing">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="GlowPlayingBorder"
+                                                                       Storyboard.TargetProperty="Opacity"
+                                                                       RepeatBehavior="Forever"
+                                                                       AutoReverse="True">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00.00" Value="0" />
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00.45" Value="0" />
+                                            <SplineDoubleKeyFrame KeyTime="00:00:01.60" Value="0.25" />
+                                            <SplineDoubleKeyFrame KeyTime="00:00:01.70" Value="0.25" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <RemoveStoryboard BeginStoryboardName="Flashing"/>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
                         <DataTrigger Binding="{Settings ShowGridItemBackground}" Value="True">
                             <Setter Property="Padding" Value="2,5,2,5" TargetName="ShowGameName" />
                             <Setter Property="TextAlignment" Value="Center" TargetName="ShowGameName" />
                             <Setter Property="Background" Value="{DynamicResource GridViewCoverSelectionBrush}" TargetName="ShowGameNameBorder" />
                         </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Settings ShowGridItemBackground}" Value="True" />
-                                <Condition Binding="{Settings ShowNamesUnderCovers}" Value="True" />
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="CornerRadius" Value="{DynamicResource GridViewCoverGridBackgroundDisabledCornerRadius}" TargetName="Mask" />
-                        </MultiDataTrigger>
                         <DataTrigger Binding="{Binding IsInstalled}" Value="False">
                             <Setter Property="Content" Value="&#xef08;" TargetName="PART_ButtonPlay" />
                         </DataTrigger>
@@ -587,7 +643,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    
     <Style x:Key="AnimatedCoverShineBackground" TargetType="Border">
         <Setter Property="Opacity" Value="0.00" />
         <Setter Property="Background">
@@ -604,7 +660,7 @@
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
                 <DataTrigger.EnterActions>
                     <BeginStoryboard>
-                        <Storyboard>
+                        <Storyboard Timeline.DesiredFrameRate="20">
                             <DoubleAnimation
                                     Storyboard.TargetProperty="Opacity"
                                     To="0.90"

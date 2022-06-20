@@ -311,3 +311,24 @@ Packages:
       - 'GridView: Hide Reviews Viewer section for games not from Steam or PC games'
       - 'GridView: PC games without a library plugin banner will use a PC platform banner'
       - 'GridView: Reduce memory used by banner images'
+  - Version: 2.36
+    RequiredApiVersion: 2.1.0
+    ReleaseDate: 2022-05-07
+    PackageUrl: https://github.com/darklinkpower/Stardust/releases/download/2.36/Stardust_2.0_1fb333b2-255b-43dd-aec1-8e2f2d5ea002_2_36.pthm
+    Changelog:
+      - 'Grid View: Added a highlight animation to covers of games that are running. Enabled by default, can be enabled or disabled with ThemeModifier extension'
+  - Version: 2.37
+    RequiredApiVersion: 2.1.0
+    ReleaseDate: 2022-05-08
+    PackageUrl: https://github.com/darklinkpower/Stardust/releases/download/2.37/Stardust_2.0_1fb333b2-255b-43dd-aec1-8e2f2d5ea002_2_37.pthm
+    Changelog:
+      - 'Grid View: Added ThemeModifier option to place Description at the bottom (After extensions sections). Disabled by default.'
+      - 'Grid View: Improved performance of cover highlight animations'
+      - 'Grid View: Made glow border of playing games static. Can be enabled with ThemeModifier extension'
+  - Version: 2.38
+    RequiredApiVersion: 2.1.0
+    ReleaseDate: 2022-05-09
+    PackageUrl: https://github.com/darklinkpower/Stardust/releases/download/2.38/Stardust_2.0_1fb333b2-255b-43dd-aec1-8e2f2d5ea002_2_38.pthm
+    Changelog:
+      - 'Grid View: Added ThemeModifier extension option to use rounded covers'
+      - 'Grid View: Removed playing game border and added animation instead (Again...). Can be enabled with ThemeModifier extension'
