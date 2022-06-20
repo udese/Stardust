@@ -221,25 +221,13 @@
         <GradientStop Color="#00414244" Offset="0.95" />
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="SidebarItemForegroundBrush" StartPoint="0.5,1.0" EndPoint="0.5,0.0">
-        <GradientStop Color="#9a00c4" Offset="0.3" />
-        <GradientStop Color="#cb16db" Offset="0.95" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SidebarItemForegroundBrush" Color="#ffdbdbdb" />
 
-    <LinearGradientBrush x:Key="DetailsIconsBackgroundBrush" StartPoint="0.5,1.0" EndPoint="0.5,0.0">
-        <GradientStop Color="#9a00c4" Offset="0.3" />
-        <GradientStop Color="#cb16db" Offset="0.95" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="DetailsIconsBackgroundBrush" Color="{DynamicResource GlyphColor}" />
 
-    <LinearGradientBrush x:Key="DetailsIcons2BackgroundBrush" StartPoint="0.5,1.0" EndPoint="0.5,0.0">
-        <GradientStop Color="#009377" Offset="0.4" />
-        <GradientStop Color="#00d492" Offset="0.95" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="DetailsIcons2BackgroundBrush" Color="{DynamicResource GlyphColor}" />
 
-    <LinearGradientBrush x:Key="DetailsIcons3BackgroundBrush" StartPoint="0.5,1.0" EndPoint="0.5,0.0">
-        <GradientStop Color="#f27302" Offset="0.4" />
-        <GradientStop Color="#f0a300" Offset="0.95" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="DetailsIcons3BackgroundBrush" Color="{DynamicResource GlyphColor}" />
 
     <SolidColorBrush x:Key="LibraryDetailsViewIsRunningForegroundBrush" Color="#00d492" />
     <SolidColorBrush x:Key="LibraryDetailsViewIsLaunchingForegroundBrush" Color="#f0a300" />
