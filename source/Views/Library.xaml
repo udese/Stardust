@@ -122,7 +122,6 @@
                                 </Grid.ColumnDefinitions>
                                 <Border BorderThickness="0">
                                     <FilterPanel x:Name="PART_FilterPanel"
-                                                 Margin="{DynamicResource PanelTopPanelSeparator}"
                                                  Width="{Settings FilterPanelWitdh}"
                                                  Visibility="{Settings FilterPanelVisible}" />
                                     <Border.Style>
