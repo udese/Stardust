@@ -1,6 +1,6 @@
 ![DownloadCount](https://img.shields.io/github/downloads/darklinkpower/Stardust/total.svg)
 # Stardust
-Theme inspired by GOG Galaxy 2.0 for [Playnite](https://github.com/JosefNemec/Playnite) Desktop Mode.
+My fork of the Theme inspired by GOG Galaxy 2.0 for [Playnite](https://github.com/JosefNemec/Playnite) Desktop Mode.
 
 Playnite forum thread: https://playnite.link/forum/thread-468.html
 
@@ -9,7 +9,7 @@ All the work I do for Playnite extensions is and will always be free!
 
 I make extensions and themes to learn, have fun and to give to the community so donations are not required or requested. If you find the work being done useful and you are and in a position that allows it, you can consider making a tip to support the different Playnite related projects I work on, every little bit helps.
 
-<a href='https://ko-fi.com/darklinkpower' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href='https://ko-fi.com/darklinkpower' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=2' border='0' alt='Buy Darklink a Coffee at ko-fi.com&nbsp;!' /></a>
 
 ## Theme goals
 - Use GOG Galaxy 2.0 UI as inspiration to create a polished Playnite UI. The font used by it can be downloaded from [from here](https://www.1001freefonts.com/es/lato.font) to be used in Playnite. The font used by Playnite can be configured in `Settings` -> `Appearance` -> `Application font`
